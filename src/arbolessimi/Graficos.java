@@ -28,7 +28,6 @@ public class Graficos {
             if(n.Dere!= null){
                 g.drawLine(x, y, (x+43) + xoff-(nivel*2), (y-10) + yoff);
             }
-
             g.fillOval(x-10, y-20, 30, 30);
             g.setColor(Color.BLACK);
             g.drawString(n.Info+"", x , y );

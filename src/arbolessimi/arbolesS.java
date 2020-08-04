@@ -16,6 +16,7 @@ public class arbolesS extends javax.swing.JFrame {
     Arbol Arbol_A;
     Arbol Arbol_B;
     Hilo can1;
+    Hilo2 can2;
     int Ladot=0;
     public arbolesS() {
         initComponents();
@@ -51,7 +52,8 @@ public class arbolesS extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setPreferredSize(new java.awt.Dimension(800, 500));
+        getContentPane().setLayout(null);
 
         ArbolA.setPreferredSize(new java.awt.Dimension(600, 600));
 
@@ -68,7 +70,8 @@ public class arbolesS extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(ArbolA);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 315, 270));
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(30, 40, 315, 270);
 
         javax.swing.GroupLayout ArbolBLayout = new javax.swing.GroupLayout(ArbolB);
         ArbolB.setLayout(ArbolBLayout);
@@ -83,7 +86,8 @@ public class arbolesS extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(ArbolB);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 40, 323, 270));
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(355, 40, 323, 270);
 
         AgregaA.setText("Agregar A");
         AgregaA.addActionListener(new java.awt.event.ActionListener() {
@@ -91,22 +95,35 @@ public class arbolesS extends javax.swing.JFrame {
                 AgregaAActionPerformed(evt);
             }
         });
-        getContentPane().add(AgregaA, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, -1, -1));
+        getContentPane().add(AgregaA);
+        AgregaA.setBounds(190, 330, 81, 28);
 
         AgregaB.setText("Agregar B");
-        getContentPane().add(AgregaB, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 330, -1, -1));
+        AgregaB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregaBActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AgregaB);
+        AgregaB.setBounds(480, 330, 82, 28);
 
         jLabel1.setText("A");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 18, 54, -1));
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(178, 18, 54, 16);
 
         jLabel2.setText("B");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1462, 18, 36, -1));
-        getContentPane().add(ReciA, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 36, -1));
-        getContentPane().add(ReciB, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, 33, -1));
-        getContentPane().add(MuestraAr, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 420, 240, -1));
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(1462, 18, 36, 16);
+        getContentPane().add(ReciA);
+        ReciA.setBounds(120, 330, 36, 28);
+        getContentPane().add(ReciB);
+        ReciB.setBounds(390, 330, 33, 28);
+        getContentPane().add(MuestraAr);
+        MuestraAr.setBounds(330, 420, 240, 28);
 
         jLabel3.setText("El Arbol es:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 420, 94, -1));
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(180, 420, 94, 16);
 
         Lado.add(izq);
         izq.setText("Izquierda");
@@ -115,7 +132,8 @@ public class arbolesS extends javax.swing.JFrame {
                 izqActionPerformed(evt);
             }
         });
-        getContentPane().add(izq, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 370, -1, -1));
+        getContentPane().add(izq);
+        izq.setBounds(240, 370, 72, 18);
 
         Lado.add(der);
         der.setText("Derecha");
@@ -124,10 +142,12 @@ public class arbolesS extends javax.swing.JFrame {
                 derActionPerformed(evt);
             }
         });
-        getContentPane().add(der, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 370, 80, -1));
+        getContentPane().add(der);
+        der.setBounds(370, 370, 80, 18);
 
         jLabel4.setText("B");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 30, -1));
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(480, 20, 30, 16);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -146,6 +166,13 @@ public class arbolesS extends javax.swing.JFrame {
     private void derActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_derActionPerformed
        Ladot = 1;
     }//GEN-LAST:event_derActionPerformed
+
+    private void AgregaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregaBActionPerformed
+       int valor = Integer.parseInt(ReciB.getText());
+        Arbol_B.insertar(valor, Ladot);
+        can2 = new Hilo2(this);
+        can2.iniciar();
+    }//GEN-LAST:event_AgregaBActionPerformed
 
     public Arbol getArbol_A() {
         return Arbol_A;
