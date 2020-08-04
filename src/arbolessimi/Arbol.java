@@ -62,9 +62,26 @@ public class Arbol {
   
     public void Inorden2(Nodo a2){
         if(a2!=null){
-            Inorden(a2.Izq);
+            Inorden2(a2.Izq);
             nombreA2.add(a2.Info);
-            Inorden(a2.Dere);     
+            Inorden2(a2.Dere);     
+        }
+    }
+   
+    boolean prueba3 = true;
+    public void InordenSimi(Nodo a1, Nodo a2){
+        if(a1!=null && a2!=null){
+            InordenSimi(a1.Izq,a2.Izq);
+            if(a1.Info!=a2.Info){
+                prueba3 = true;
+                System.out.println("EL ARBOL ES SIMILAR");
+            }else{
+                prueba3 =false;
+                System.out.println("EL ARBOL NO ES SIMILAR");
+            }
+            InordenSimi(a1.Dere,a2.Dere);
+        }if(a1 !=null && a2==null || a2 != null && a1==null){
+            System.out.println("NO son similares");
         }
     }
     
