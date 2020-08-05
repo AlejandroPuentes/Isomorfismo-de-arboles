@@ -12,23 +12,23 @@ package arbolessimi;
 public class ArbolesSimi {
     public static void main (String src[]){
         Arbol ar = new Arbol();
-        Arbol ar1 = new Arbol();
-        ar.insertar(6, 1);
-        ar.insertar(5, 1);
-        ar.insertar(4, 1);
-        ar.insertar(3, 1);
-        ar.insertar(2, 1);
-        ar.insertar(1, 1);
-
+        Arbol arr = new Arbol();
+        ar.insertar(6);
+        ar.insertar(5);
+        ar.insertar(4);
+        ar.insertar(3);
+        ar.insertar(2);
+        ar.insertar(1);
         
-        ar1.insertar(7, 1);
-        ar1.insertar(8, 1);
-        ar1.insertar(9, 1);
-        ar1.insertar(10, 1);
-        ar1.insertar(11, 1);
-        ar1.insertar(12, 1);
+        arr.insertar(11);
+        arr.insertar(10);
+        arr.insertar(9);
+        arr.insertar(8);
+        arr.insertar(7);
+        arr.insertar(6);
         
-        ar1.InordenSimi(ar.raiz, ar1.raiz);
+        arr.esSimilar(ar.raiz, arr.raiz);
+        System.out.println(ar.CadenaInorden(ar.raiz));
         //ar1.sameTree(ar.raiz, ar1.raiz);
         
         //ar1.compa(ar.raiz, ar1.raiz);

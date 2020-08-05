@@ -15,6 +15,7 @@ public class arbolesS extends javax.swing.JFrame {
 
     Arbol Arbol_A;
     Arbol Arbol_B;
+    Arbol resultado;
     Hilo can1;
     Hilo2 can2;
     int Ladot=0;
@@ -22,6 +23,7 @@ public class arbolesS extends javax.swing.JFrame {
         initComponents();
         Arbol_A = new Arbol();
         Arbol_B = new Arbol();
+        resultado = new  Arbol();
         
     }
 
@@ -46,13 +48,11 @@ public class arbolesS extends javax.swing.JFrame {
         ReciA = new javax.swing.JTextField();
         ReciB = new javax.swing.JTextField();
         MuestraAr = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        izq = new javax.swing.JRadioButton();
-        der = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(1280, 500));
         getContentPane().setLayout(null);
 
         ArbolA.setPreferredSize(new java.awt.Dimension(600, 600));
@@ -71,7 +71,7 @@ public class arbolesS extends javax.swing.JFrame {
         jScrollPane1.setViewportView(ArbolA);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(30, 40, 315, 270);
+        jScrollPane1.setBounds(30, 40, 420, 270);
 
         javax.swing.GroupLayout ArbolBLayout = new javax.swing.GroupLayout(ArbolB);
         ArbolB.setLayout(ArbolBLayout);
@@ -87,7 +87,7 @@ public class arbolesS extends javax.swing.JFrame {
         jScrollPane2.setViewportView(ArbolB);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(355, 40, 323, 270);
+        jScrollPane2.setBounds(530, 40, 420, 270);
 
         AgregaA.setText("Agregar A");
         AgregaA.addActionListener(new java.awt.event.ActionListener() {
@@ -105,11 +105,11 @@ public class arbolesS extends javax.swing.JFrame {
             }
         });
         getContentPane().add(AgregaB);
-        AgregaB.setBounds(480, 330, 82, 28);
+        AgregaB.setBounds(790, 330, 82, 28);
 
         jLabel1.setText("A");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(178, 18, 54, 16);
+        jLabel1.setBounds(240, 20, 54, 16);
 
         jLabel2.setText("B");
         getContentPane().add(jLabel2);
@@ -117,62 +117,64 @@ public class arbolesS extends javax.swing.JFrame {
         getContentPane().add(ReciA);
         ReciA.setBounds(120, 330, 36, 28);
         getContentPane().add(ReciB);
-        ReciB.setBounds(390, 330, 33, 28);
+        ReciB.setBounds(720, 330, 33, 28);
         getContentPane().add(MuestraAr);
-        MuestraAr.setBounds(330, 420, 240, 28);
-
-        jLabel3.setText("El Arbol es:");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(180, 420, 94, 16);
-
-        Lado.add(izq);
-        izq.setText("Izquierda");
-        izq.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                izqActionPerformed(evt);
-            }
-        });
-        getContentPane().add(izq);
-        izq.setBounds(240, 370, 72, 18);
-
-        Lado.add(der);
-        der.setText("Derecha");
-        der.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                derActionPerformed(evt);
-            }
-        });
-        getContentPane().add(der);
-        der.setBounds(370, 370, 80, 18);
+        MuestraAr.setBounds(480, 420, 240, 28);
 
         jLabel4.setText("B");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(480, 20, 30, 16);
+        jLabel4.setBounds(740, 20, 30, 16);
+
+        jButton1.setText("El Arbol es:");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(320, 420, 120, 28);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void AgregaAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregaAActionPerformed
         int valor = Integer.parseInt(ReciA.getText());
-        Arbol_A.insertar(valor, Ladot);
+        Arbol_A.insertar(valor);
         can1 = new Hilo(this);
         can1.iniciar();
     }//GEN-LAST:event_AgregaAActionPerformed
 
-    private void izqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_izqActionPerformed
-        Ladot = 2;
-    }//GEN-LAST:event_izqActionPerformed
-
-    private void derActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_derActionPerformed
-       Ladot = 1;
-    }//GEN-LAST:event_derActionPerformed
-
     private void AgregaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregaBActionPerformed
        int valor = Integer.parseInt(ReciB.getText());
-        Arbol_B.insertar(valor, Ladot);
+        Arbol_B.insertar(valor);
         can2 = new Hilo2(this);
         can2.iniciar();
     }//GEN-LAST:event_AgregaBActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String tipoArbol;
+        if(Arbol_A!=null && Arbol_B!=null){
+            int valor =resultado.Verificcion(Arbol_A.raiz, Arbol_B.raiz);
+            switch (valor){
+                case 1:
+                    tipoArbol="Los Arboles son iguales";
+                    MuestraAr.setText(tipoArbol);
+                    break;
+                case 2:
+                    tipoArbol="Los Arboles son Semejantes";
+                    MuestraAr.setText(tipoArbol);
+                    break;
+                case 3:
+                    tipoArbol="Los Arboles son Similares";
+                    MuestraAr.setText(tipoArbol);
+                    break;
+                case 4:
+                    tipoArbol="Los Arboles son Diferentes";
+                    MuestraAr.setText(tipoArbol);
+                    break;
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public Arbol getArbol_A() {
         return Arbol_A;
@@ -234,11 +236,9 @@ public class arbolesS extends javax.swing.JFrame {
     private javax.swing.JTextField MuestraAr;
     private javax.swing.JTextField ReciA;
     private javax.swing.JTextField ReciB;
-    private javax.swing.JRadioButton der;
-    private javax.swing.JRadioButton izq;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

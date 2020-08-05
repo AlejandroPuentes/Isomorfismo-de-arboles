@@ -17,37 +17,41 @@ public class Arbol {
     Nodo raiz;
     ArrayList nombreA1;
     ArrayList nombreA2;
+    private String estado;
     Arbol(){
         raiz = null;
         nombreA1 = new ArrayList();
         nombreA2 = new ArrayList();
     }
     
-    public void insertar(int x, int dire){
+    public void insertar(int x){
         //direccion 1 derecha 2 izquierda
         Nodo nuevo =new Nodo(x);
         if (raiz == null){
             raiz = nuevo;
         }else{
-            Nodo p ;
+            Nodo p,q=null ;
             p=raiz;
             while(p!=null){
-                if (dire==1){
-                   if(p.Dere==null){
-                       p.Dere=new Nodo(x);
-                       return;
-                   }else{
-                       p=p.Dere;
-                   } 
+                if (x < p.Info){
+                   q=p;
+                   p=p.Izq;
                 }else{
-                    if(p.Izq==null){
-                       p.Izq=new Nodo(x);
-                       return;
-                   }else{
-                       p=p.Izq;
-                   }
+                    if(x>p.Info){
+                        q=p;
+                        p=p.Dere;
+                    }else{
+                        return;
+                    }
                 }
-            }           
+            }
+            if (x<q.Info){
+                q.Izq = new Nodo(x);
+            }else{
+                if(x>q.Info){
+                    q.Dere = new Nodo (x);
+                }
+            }
         }  
     }
   
@@ -67,27 +71,11 @@ public class Arbol {
             Inorden2(a2.Dere);     
         }
     }
-   
-    boolean prueba3 = true;
-    public void InordenSimi(Nodo a1, Nodo a2){
-        if(a1!=null && a2!=null){
-            InordenSimi(a1.Izq,a2.Izq);
-            if(a1.Info!=a2.Info){
-                prueba3 = true;
-                System.out.println("EL ARBOL ES SIMILAR");
-            }else{
-                prueba3 =false;
-                System.out.println("EL ARBOL NO ES SIMILAR");
-            }
-            InordenSimi(a1.Dere,a2.Dere);
-        }if(a1 !=null && a2==null || a2 != null && a1==null){
-            System.out.println("NO son similares");
-        }
-    }
     
-    public void compa(Nodo a1, Nodo a2){
-        //System.out.println(a1.Info);
-        //System.out.println(a2.Info);
+ 
+    
+    // Semejantes
+    public boolean compa(Nodo a1, Nodo a2){
         boolean x = true;
         LinkedList rec = new LinkedList();
         LinkedList rec2 = new LinkedList();
@@ -112,11 +100,14 @@ public class Arbol {
                 }
             }if(x==true){
                 System.out.println("Son semejantes");
+                return true;
             }else{
                 System.out.println("No son semejantes");
+                return false;
             }
         }else{
             System.out.println("Longitud !=");
+            return false;
         }
     }
     int prueba=0;
@@ -139,6 +130,8 @@ public class Arbol {
         }
         return prueba2;
     }
+    
+    //iguales
     boolean sameTree(Nodo root1, Nodo root2){
         if(root1 == null && root2 == null){ 
             return true;
@@ -152,6 +145,87 @@ public class Arbol {
         }
         System.out.println("No son iguales");
         return false;
+    }
+    //similares
+    public  void InordenSimilar(Nodo a1, Nodo a2) {
+        if (a1 != null && a2 != null) {
+            InordenSimilar(a1.Izq, a2.Izq);
+            InordenSimilar(a1.Dere, a2.Dere);
+        }
+        if (a1 != null && a2 == null || a2 != null && a1 == null) {
+            this.estado = "noEsSimilar";
+        }
+    }
+    
+    public  boolean repetidos(Nodo arbol1, Nodo arbol2){
+        // la informacion de uno o mas nodos es distinta
+        // arbol1inor y arbol2inor son los recorridos en inorden de cada arbol, en una variable string
+        String arbol1inor = CadenaInorden(arbol1);
+        System.out.println(CadenaInorden(arbol1));
+        String arbol2inor = CadenaInorden1(arbol2);
+        System.out.println(CadenaInorden(arbol1));
+        for(int i = 0; i<arbol1inor.length(); i++){
+            char numero1 = arbol1inor.charAt(i);
+            char numero2 = arbol2inor.charAt(i);
+            if(numero1 != numero2) return true;
+            
+        }
+        return false;
+    }
+    
+    public boolean esSimilar(Nodo arbol1, Nodo arbol2){
+        this.estado = "similar";
+        InordenSimilar(arbol1, arbol2);
+        boolean r2 = repetidos(arbol1, arbol2);
+        
+        System.out.println("MISMA ESTRUCTURA: "+ this.estado);
+        System.out.println("POR LO MENOS UN DIFERENTE: "+ r2);
+        
+        if(r2 == true && this.estado.equals("similar")){
+            System.out.println("ES SIMILAR");
+            return true;
+        }
+        return false;
+    }
+    String cadena1="";
+    String CadenaInorden(Nodo a2){
+        if(a2!=null){
+            CadenaInorden(a2.Izq);
+            //System.out.println(a2.Info);
+            cadena1 =cadena1+a2.Info;
+            CadenaInorden(a2.Dere);     
+        }
+        return cadena1;
+    }
+    String cadena3="";
+    String CadenaInorden1(Nodo a2){
+        if(a2!=null){
+            CadenaInorden1(a2.Izq);
+            //System.out.println(a2.Info);
+            cadena3 =cadena3+a2.Info;
+            CadenaInorden1(a2.Dere);     
+        }
+        return cadena3;
+    }
+    
+    public int Verificcion(Nodo a, Nodo b){
+        int number = 0; 
+        if(sameTree(a,b)==true){
+            number=1;
+        }else{
+            if(compa(a, b)==true){
+                number=2;
+            }else{
+                if(esSimilar(a, b)==true){
+                    number=3;
+                }else{
+                    number =4;
+                }
+            }
+            
+        }
+        return number;
+        
     }
     
 }
